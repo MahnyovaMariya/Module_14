@@ -14,6 +14,10 @@
 		4CADD2F2248C053900C90CCA /* Next5WeatherDataLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CADD2F1248C053900C90CCA /* Next5WeatherDataLoader.swift */; };
 		4CADD2F4248CD9E600C90CCA /* RealmSaveWetherForecastData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CADD2F3248CD9E500C90CCA /* RealmSaveWetherForecastData.swift */; };
 		4CADD2FA248D6BEA00C90CCA /* RealmSaveNextWetherForecastData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CADD2F9248D6BEA00C90CCA /* RealmSaveNextWetherForecastData.swift */; };
+		4CADD2FE2492630F00C90CCA /* ListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CADD2FD2492630F00C90CCA /* ListTableViewCell.swift */; };
+		4CADD3002492898200C90CCA /* MakeTaskElem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CADD2FF2492898200C90CCA /* MakeTaskElem.swift */; };
+		4CADD3022495688000C90CCA /* ListCoreDataTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CADD3012495688000C90CCA /* ListCoreDataTableViewCell.swift */; };
+		4CADD30424979DDE00C90CCA /* CoreDataMakeToDoList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CADD30324979DDE00C90CCA /* CoreDataMakeToDoList.swift */; };
 		4CAFE60C248530B900740773 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CAFE60B248530B900740773 /* AppDelegate.swift */; };
 		4CAFE60E248530B900740773 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CAFE60D248530B900740773 /* SceneDelegate.swift */; };
 		4CAFE610248530B900740773 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CAFE60F248530B900740773 /* ViewController.swift */; };
@@ -39,6 +43,10 @@
 		4CADD2F1248C053900C90CCA /* Next5WeatherDataLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Next5WeatherDataLoader.swift; sourceTree = "<group>"; };
 		4CADD2F3248CD9E500C90CCA /* RealmSaveWetherForecastData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmSaveWetherForecastData.swift; sourceTree = "<group>"; };
 		4CADD2F9248D6BEA00C90CCA /* RealmSaveNextWetherForecastData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmSaveNextWetherForecastData.swift; sourceTree = "<group>"; };
+		4CADD2FD2492630F00C90CCA /* ListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListTableViewCell.swift; sourceTree = "<group>"; };
+		4CADD2FF2492898200C90CCA /* MakeTaskElem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MakeTaskElem.swift; sourceTree = "<group>"; };
+		4CADD3012495688000C90CCA /* ListCoreDataTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListCoreDataTableViewCell.swift; sourceTree = "<group>"; };
+		4CADD30324979DDE00C90CCA /* CoreDataMakeToDoList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataMakeToDoList.swift; sourceTree = "<group>"; };
 		4CAFE608248530B900740773 /* Module 14.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Module 14.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		4CAFE60B248530B900740773 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		4CAFE60D248530B900740773 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -110,6 +118,7 @@
 			children = (
 				4CADD2EB248C049000C90CCA /* CurrentMoscowWeatherForecastMain.swift */,
 				4CADD2ED248C04A200C90CCA /* Next5DaysWeatherForecastMain.swift */,
+				4CADD2FF2492898200C90CCA /* MakeTaskElem.swift */,
 			);
 			path = ClassDescription;
 			sourceTree = "<group>";
@@ -121,6 +130,7 @@
 				4CAFE62A2486887200740773 /* RealmMakeToDoList.swift */,
 				4CADD2F3248CD9E500C90CCA /* RealmSaveWetherForecastData.swift */,
 				4CADD2F9248D6BEA00C90CCA /* RealmSaveNextWetherForecastData.swift */,
+				4CADD30324979DDE00C90CCA /* CoreDataMakeToDoList.swift */,
 			);
 			path = DataBase;
 			sourceTree = "<group>";
@@ -158,6 +168,8 @@
 				4CAFE619248530C200740773 /* LaunchScreen.storyboard */,
 				4CAFE61C248530C200740773 /* Info.plist */,
 				4CAFE614248530BA00740773 /* Module_14.xcdatamodeld */,
+				4CADD2FD2492630F00C90CCA /* ListTableViewCell.swift */,
+				4CADD3012495688000C90CCA /* ListCoreDataTableViewCell.swift */,
 			);
 			path = "Module 14";
 			sourceTree = "<group>";
@@ -278,14 +290,18 @@
 			buildActionMask = 2147483647;
 			files = (
 				4CAFE616248530BA00740773 /* Module_14.xcdatamodeld in Sources */,
+				4CADD3022495688000C90CCA /* ListCoreDataTableViewCell.swift in Sources */,
 				4CADD2F0248C052900C90CCA /* WeatherDataLoader.swift in Sources */,
 				4CADD2F4248CD9E600C90CCA /* RealmSaveWetherForecastData.swift in Sources */,
 				4CAFE610248530B900740773 /* ViewController.swift in Sources */,
 				4CADD2EE248C04A200C90CCA /* Next5DaysWeatherForecastMain.swift in Sources */,
+				4CADD3002492898200C90CCA /* MakeTaskElem.swift in Sources */,
+				4CADD2FE2492630F00C90CCA /* ListTableViewCell.swift in Sources */,
 				4CAFE60C248530B900740773 /* AppDelegate.swift in Sources */,
 				4CADD2EA248C00F600C90CCA /* WeatherForecastTableViewCell.swift in Sources */,
 				4CAFE60E248530B900740773 /* SceneDelegate.swift in Sources */,
 				4CAFE6232485349D00740773 /* PersonalData.swift in Sources */,
+				4CADD30424979DDE00C90CCA /* CoreDataMakeToDoList.swift in Sources */,
 				4CAFE631248BE78000740773 /* WeatherForecastViewController.swift in Sources */,
 				4CAFE6292486872500740773 /* RealmToDoTasksViewController copy.swift in Sources */,
 				4CADD2F2248C053900C90CCA /* Next5WeatherDataLoader.swift in Sources */,

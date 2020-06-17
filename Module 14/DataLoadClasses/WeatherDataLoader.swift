@@ -67,8 +67,9 @@ class WeatherDataLoader {
                 }
                 tempArr.append(Temp(temp: temporaryTemp, pressure: temporaryPress, humidity: temporaryHum, clouds: temporaryClouds, speed: temporarySpeed, description: temporaryDescript, name: temporaryName))
                 if let variableForecast = CurrentMoscowWeatherForecastMain(dataMain: tempArr) { weatherDataMain.append(variableForecast) }
-                print(tempArr)
-                    DispatchQueue.main.async { completion(weatherDataMain) }
+                RealmSaveWetherForecastData.weatherData.deleteData()
+                RealmSaveWetherForecastData.weatherData.addData(tempArr: weatherDataMain)
+                DispatchQueue.main.async { completion(weatherDataMain) }
                 }
         }
     }

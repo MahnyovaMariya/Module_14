@@ -11,80 +11,86 @@ import CoreData
 
 class CoreDataToDoTasksViewController: UIViewController {
     
+    var arrayOfTasks: [NSManagedObject] = []
+    @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var newTaskTextField: UITextField!
-    
     @IBAction func addToListButton(_ sender: Any) {
-        let appDelegate = UIApplication.shared.delegate as! AppDelegate
-        let context = appDelegate.persistentContainer.viewContext
-        let entity = NSEntityDescription.entity(forEntityName: "List", in: context)
-        let newTask = NSManagedObject(entity: entity!, insertInto: context)
-        newTask.setValue(newTaskTextField.text, forKey: "task")
-        do {
-            try context.save()
-        } catch {
-            print("error")
-        }
-        taskListTextView.text = ""
+        
+        CoreDataMakeToDoList().addToList(task: newTaskTextField.text!, check: false)
         newTaskTextField.text = ""
         viewDidLoad()
     }
-    
     @IBAction func deleteFromListButton(_ sender: Any) {
         
         UIView.animate(withDuration: 0.5, delay: 0, options: .curveLinear, animations: {
             self.deleteTaskView.alpha = 1
         }, completion: nil)
     }
-    
     @IBOutlet weak var deleteTaskView: UIView!
     @IBOutlet weak var numberTaskTextField: UITextField!
-    
     @IBAction func deleteTaskButton(_ sender: Any) {
         
-        let appDelegate = UIApplication.shared.delegate as! AppDelegate
-        let context = appDelegate.persistentContainer.viewContext
-        let request = NSFetchRequest<NSFetchRequestResult>(entityName: "List")
-        request.returnsObjectsAsFaults = false
-        let result = try! context.fetch(request)
-        for _ in result as! [NSManagedObject]  {
-            for j in 0...result.count - 1 {
-                if j == Int(numberTaskTextField.text!)! - 1 {
-                    context.delete(result[j] as! NSManagedObject)
-                }
-            }
-        }
-        do {
-            try! context.save()
-        }
-        taskListTextView.text = ""
-      UIView.animate(withDuration: 0.5, delay: 0, options: .curveLinear, animations: {
-          self.deleteTaskView.alpha = 0
-      }, completion: nil)
+        CoreDataMakeToDoList().deleteFromList(number: Int(numberTaskTextField.text!)!)
+        hideView()
         numberTaskTextField.text = ""
         viewDidLoad()
+        self.tableView.reloadData()
     }
+    @IBAction func cancelButton(_ sender: Any) { hideView() }
     
-    @IBOutlet weak var taskListTextView: UITextView!
+    func hideView() {
+        
+        UIView.animate(withDuration: 0.5, delay: 0, options: .curveLinear, animations: {
+            self.deleteTaskView.alpha = 0
+        }, completion: nil)
+    }
     
     override func viewDidLoad() {
         
         super.viewDidLoad()
-        var count = 0
+        arrayOfTasks = []
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         let context = appDelegate.persistentContainer.viewContext
         let request = NSFetchRequest<NSFetchRequestResult>(entityName: "List")
-        request.returnsObjectsAsFaults = false
         do {
             let result = try! context.fetch(request)
             if result .isEmpty {
-                taskListTextView.text = "Задачи отсутствуют"
+                print("Задачи отсутствуют")
             } else {
-            for i in result as! [NSManagedObject] {
-                count += 1
-                taskListTextView.text.append(contentsOf: "\(count) \(i.value(forKey: "task") as! String)\n")
+                for i in result as! [NSManagedObject] {
+                    arrayOfTasks.append(i)
+                }
             }
-            count = 0
+        } catch {}
+        self.tableView.reloadData()
+    }
+}
+
+extension CoreDataToDoTasksViewController: UITableViewDataSource {
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        
+        return arrayOfTasks.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
+        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell") as! ListCoreDataTableViewCell
+        if arrayOfTasks .isEmpty {
+            cell.numberTaskLabel.text = ""
+            cell.taskLabel.text = ""
+            cell.checkButton.isHidden = false
+        } else {
+            cell.numberTaskLabel.text = String(indexPath.row + 1)
+            cell.taskLabel.text = arrayOfTasks[indexPath.row].value(forKey: "task") as? String
+            if arrayOfTasks[indexPath.row].value(forKey: "check") as? Bool == true {
+                cell.checkButton.isHidden = true
+                cell.accessoryType = UITableViewCell.AccessoryType.checkmark
+            } else if arrayOfTasks[indexPath.row].value(forKey: "check") as? Bool == false {
+                cell.checkButton.isHidden = false
+                cell.accessoryType = UITableViewCell.AccessoryType.none
             }
         }
+        return cell
     }
 }

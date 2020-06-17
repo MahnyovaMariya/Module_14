@@ -19,9 +19,9 @@ class WeatherForecastViewController: UIViewController {
     @IBOutlet weak var weatherDescriptionLabel: UILabel!
     @IBOutlet weak var tableView: UITableView!
 
-    var weatherDataMain: [CurrentMoscowWeatherForecastMain] = []
-    var nextWeatherDataMain: [Next5DaysWeatherForecastMain] = []
-    
+    var weatherDataMain: [WeatherData1] = []
+    var nextWeatherDataMain: [NextWeatherData1] = []
+
     override func viewDidLoad() {
         
         super.viewDidLoad()
@@ -41,23 +41,20 @@ class WeatherForecastViewController: UIViewController {
             mainHumidityLabel.text = String(array[0].humidity)
             windSpeedLabel.text = String(array[0].windSpeed)
             cloudnessLabel.text = String(array[0].cloudness)
-            weatherDescriptionLabel.text = array[0].condition
+            weatherDescriptionLabel.text = array[0].description
         }
-        WeatherDataLoader().loadWeatherDataMainAlamofire{ weatherDataMain in
-            self.weatherDataMain = weatherDataMain
-            self.mainTempLabel.text = self.weatherDataMain[0].mainTemp
-            self.mainPressureLabel.text = self.weatherDataMain[0].mainPressure
-            self.mainHumidityLabel.text = String(self.weatherDataMain[0].mainHumidity)
-            self.cloudnessLabel.text = String(self.weatherDataMain[0].cloudsAll)
+        WeatherDataLoader().loadWeatherDataMainAlamofire { _ in
+            self.weatherDataMain = RealmSaveWetherForecastData.weatherData.selectData()
+            self.mainTempLabel.text = String(self.weatherDataMain[0].temperature)
+            self.mainPressureLabel.text = String(self.weatherDataMain[0].pressure)
+            self.mainHumidityLabel.text = String(self.weatherDataMain[0].humidity)
+            self.cloudnessLabel.text = String(self.weatherDataMain[0].cloudness)
             self.windSpeedLabel.text = String(self.weatherDataMain[0].windSpeed)
-            self.weatherDescriptionLabel.text = self.weatherDataMain[0].description
-            self.cityNameLabel.text = self.weatherDataMain[0].name
-            RealmSaveWetherForecastData.weatherData.deleteData()
-            RealmSaveWetherForecastData.weatherData.addData(tempArr: self.weatherDataMain)
+            self.weatherDescriptionLabel.text = self.weatherDataMain[0].condition
+            self.cityNameLabel.text = self.weatherDataMain[0].city
         }
-        
-        Next5WeatherDataLoader().loadNext5WeatherDataMainAlamofire { nextWeatherDataMain in
-            self.nextWeatherDataMain = nextWeatherDataMain
+        Next5WeatherDataLoader().loadNext5WeatherDataMainAlamofire { _ in
+            self.nextWeatherDataMain = RealmSaveNextWetherForecastData.nextWeatherData.selectData()
             self.tableView.reloadData()
         }
     }
@@ -94,15 +91,13 @@ extension WeatherForecastViewController: UITableViewDataSource {
             }
         }
         let obj1 = nextWeatherDataMain[indexPath.row]
-        cell.mainTempLabel.text = obj1.mainTemp
-        cell.mainPressureLabel.text = obj1.mainPressure
-        cell.mainHumidityLabel.text = String(obj1.mainHumidity)
-        cell.cloudnessLabel.text = String(obj1.cloudsAll)
+        cell.mainTempLabel.text = String(obj1.temperature)
+        cell.mainPressureLabel.text = String(obj1.pressure)
+        cell.mainHumidityLabel.text = String(obj1.humidity)
+        cell.cloudnessLabel.text = String(obj1.cloudness)
         cell.windSpeedLabel.text = String(obj1.windSpeed)
-        cell.weatherDescriptionLabel.text = obj1.description
+        cell.weatherDescriptionLabel.text = obj1.condition
         cell.currentDateLabel.text = obj1.date
-        RealmSaveNextWetherForecastData.nextWeatherData.deleteData()
-        RealmSaveNextWetherForecastData.nextWeatherData.addData(tempArr: nextWeatherDataMain)
         return cell
     }
 }

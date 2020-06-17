@@ -11,28 +11,17 @@ import UIKit
 class WeatherForecastTableViewCell: UITableViewCell {
 
     @IBOutlet weak var currentDateLabel: UILabel!
-    
     @IBOutlet weak var mainTempLabel: UILabel!
-    
     @IBOutlet weak var mainPressureLabel: UILabel!
-    
     @IBOutlet weak var mainHumidityLabel: UILabel!
-    
     @IBOutlet weak var windSpeedLabel: UILabel!
-    
     @IBOutlet weak var cloudnessLabel: UILabel!
-    
     @IBOutlet weak var weatherDescriptionLabel: UILabel!
     
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        // Initialization code
-    }
+    override func awakeFromNib() { super.awakeFromNib() }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
+        
         super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
     }
-
 }

@@ -9,8 +9,9 @@
 import Foundation
 import RealmSwift
 
-class Task: Object {
+class Task2: Object {
     @objc dynamic var taskName = ""
+    @objc dynamic var check = false
 }
 
 class RealmMakeToDoList {
@@ -18,28 +19,43 @@ class RealmMakeToDoList {
     static let data = RealmMakeToDoList()
     private let realm = try! Realm()
     
-    func addTask(taskName: String) {
-        let task = Task()
+    func addTask(taskName: String, check: Bool) {
+        let task = Task2()
         task.taskName = taskName
-        try! realm.write {
-            realm.add(task)
-        }
+        task.check = check
+        try! realm.write { realm.add(task) }
     }
     
-    func selectTasks() -> [Task] {
-        var tempArr = [Task]()
-        for task in realm.objects(Task.self) {
-            tempArr.append(task)
-        }
-        return tempArr
+    func selectTasks() -> [MakeTaskElem] {
+        var tempArr1 = [Task2]()
+        var tempArr2 = [MakeTaskElem]()
+        for task in realm.objects(Task2.self) {
+            tempArr1.append(task)
+            let tempVariable = MakeTaskElem(listArray: tempArr1)
+            tempArr2.append(tempVariable)
+            }
+        return tempArr2
     }
-    
+       
     func deleteTask(taskNumber: String){
-        let allTasks = realm.objects(Task.self)
+        let allTasks = realm.objects(Task2.self)
         for (index, task) in allTasks.enumerated() {
             if index == Int(taskNumber)! - 1 {
+                try! realm.write { realm.delete(task) }
+            }
+        }
+    }
+    
+    func rewriteTask(number: Int, taskName: String, check: Bool) {
+        let elem = Task2()
+        elem.taskName = taskName
+        elem.check = check
+        let allTasks = realm.objects(Task2.self)
+        for (index, task) in allTasks.enumerated() {
+            if index == number - 1 {
                 try! realm.write {
-                    realm.delete(task)
+                    task.taskName = taskName
+                    task.check = check
                 }
             }
         }

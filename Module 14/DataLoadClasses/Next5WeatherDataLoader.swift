@@ -67,13 +67,15 @@ class Next5WeatherDataLoader {
                                 } else if data1 is String {
                                     temporaryDate = data1 as! String
                                 }
+                                tempNextArr.append(TempNext(temp: temporaryTemp, pressure: temporaryPress, humidity: temporaryHum, clouds: temporaryClouds, speed: temporarySpeed, description: temporaryDescript, date: temporaryDate))
                             }
-                            tempNextArr.append(TempNext(temp: temporaryTemp, pressure: temporaryPress, humidity: temporaryHum, clouds: temporaryClouds, speed: temporarySpeed, description: temporaryDescript, date: temporaryDate))
-                            if let variableForecast = Next5DaysWeatherForecastMain(dataMain: tempNextArr) { nextWeatherDataMain.append(variableForecast) }
                         }
+                        if let variableForecast = Next5DaysWeatherForecastMain(dataMain: tempNextArr) {
+                        nextWeatherDataMain.append(variableForecast) }
                     }
+                    RealmSaveNextWetherForecastData.nextWeatherData.deleteData()
+                    RealmSaveNextWetherForecastData.nextWeatherData.addData(tempArr: nextWeatherDataMain)
                 }
-                print(tempNextArr)
                 DispatchQueue.main.async {
                     completion(nextWeatherDataMain)
                 }
